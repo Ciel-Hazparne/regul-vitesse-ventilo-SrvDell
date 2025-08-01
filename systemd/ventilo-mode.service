@@ -1,0 +1,11 @@
+[Unit]
+Description=Active le contrôle manuel des ventilateurs IPMI
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/ventilo-mode.sh start
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
