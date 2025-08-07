@@ -251,10 +251,10 @@ Le script règle les ventilateurs selon la température maximale mesurée parmi 
 ```bash
 if   [ "$TEMP_MAX" -ge 70 ]; then NEWFANS=100
 elif [ "$TEMP_MAX" -ge 60 ]; then NEWFANS=80
-elif [ "$TEMP_MAX" -ge 50 ]; then NEWFANS=50
-elif [ "$TEMP_MAX" -ge 45 ]; then NEWFANS=30
-elif [ "$TEMP_MAX" -ge 35 ]; then NEWFANS=20
-else                              NEWFANS=10
+elif [ "$TEMP_MAX" -ge 50 ]; then NEWFANS=30 # 3900 rpm
+elif [ "$TEMP_MAX" -ge 45 ]; then NEWFANS=20 # 3000 rpm
+elif [ "$TEMP_MAX" -ge 35 ]; then NEWFANS=15 # 2640 rpm
+else                              NEWFANS=10 # 2040 rpm
 fi
 ```
 ### Température typique en salle au moment des tests :

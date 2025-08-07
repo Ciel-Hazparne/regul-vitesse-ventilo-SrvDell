@@ -2,10 +2,10 @@
 
 IP="IP_IDRAC"
 USER="utilisateur"
-PASS="mot_de_passe"
+PASSWORD="mot_de_passe"
 
 # Lire toutes les températures
-temps=$(ipmitool -I lanplus -H $IP -U $USER -P $PASS sdr type Temperature | grep -E 'Inlet|Exhaust|Temp' | awk -F'|' '{ print $5 }' | grep -oE '[0-9]+')
+temps=$(ipmitool -I lanplus -H $IP -U $USER -P $PASSWORD sdr type Temperature | grep -E 'Inlet|Exhaust|Temp' | awk -F'|' '{ print $5 }' | grep -oE '[0-9]+')
 
 # Vérifier que l'on a bien des valeurs
 if [ -z "$temps" ]; then
