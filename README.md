@@ -193,6 +193,7 @@ esac
 
 ## Test à blanc (sans modification)
 
+### Test régulation
 Fichier : `/var/ipmi/test-regul-simulation.sh`
 
 Affiche la température maximale détectée et la vitesse suggérée, sans rien exécuter ni modifier.
@@ -237,7 +238,12 @@ echo "Température maximale détectée : ${temp_max}°C"
 echo "Vitesse ventilateurs suggérée : ${fan_speed}%"
 echo "(simulation : aucun envoi IPMI effectué)"
 ```
-
+### test pour mesurer la relation entre PWM (%) et vitesse RPM réelle
+Fichier bash : `/var/ipmi/test_pwm_rpm.sh`  
+Export : `/var/ipmi/test_pwm_rpm.log`  
+On peut exécuter un script Python pour visualiser graphiquemnt l'évolution de la vitesse des ventilateurs.  
+Export dans une image pwm_vs_rpm.png.  
+Fichier : `/var/ipmi/plot_pwm_vs_rpm.py`
 ---
 
 ## Seuils de régulation (script principal)
