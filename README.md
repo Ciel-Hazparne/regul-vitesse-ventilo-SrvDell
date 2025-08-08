@@ -194,16 +194,16 @@ Voici un aperçu des fonctionnalités :
 ## Test à blanc (sans modification)
 
 ### Test régulation
-Fichier : `/var/ipmi/test-regul-simulation.sh`
 Affiche la température maximale détectée et la vitesse suggérée,
-sans rien exécuter ni modifier.
+sans rien exécuter ni modifier.  
+- Fichier : `/var/ipmi/test-regul-simulation.sh`
 
 ### Test pour mesurer la relation entre PWM (%) et vitesse RPM réelle
-Fichier bash : `/var/ipmi/test_pwm_rpm.sh`  
-Export : `/var/ipmi/test_pwm_rpm.log`  
+- Fichier bash : `/var/ipmi/test_pwm_rpm.sh`  
+- Export : `/var/ipmi/test_pwm_rpm.log`  
 On peut exécuter un script Python pour visualiser graphiquemnt l'évolution de la vitesse des ventilateurs.  
-Export dans une image pwm_vs_rpm.png.  
-Fichier : `/var/ipmi/plot_pwm_vs_rpm.py`
+  - Export dans une image pwm_vs_rpm.png.  
+  - Fichier : `/var/ipmi/plot_pwm_vs_rpm.py`
 ---
 
 ## Seuils de régulation (script principal)
@@ -221,7 +221,7 @@ fi
     Inlet : ~25°C
     CPU : ~41°C
     Exhaust : ~36°C
-    → Réglage typique des ventilateurs : 20–30%
+    → Réglage typique des ventilateurs : 15%
 
 ---
 
@@ -264,22 +264,24 @@ Exemple de réponse :
 | Temp         | 06h     | ok | 7.1     | 40 degrees C |
 | Temp         | 07h     | ok | 7.1     | 38 degrees C |
 | Temp         | 08h     | ok | 7.1     | 39 degrees C |
-1. **Nom du capteur/composant** : C'est le nom ou la description du capteur de température. 
-Par exemple, "Inlet Temp" et "Exhaust Temp" indiquent respectivement les températures d'entrée et de sortie de l'air.
-2. **Identifiant hexadécimal** : Chaque capteur ou composant a un identifiant unique, souvent 
+1. **Nom du capteur** : nom ou description du capteur de température. 
+Par exemple, "Inlet Temp" et "Exhaust Temp" indiquent respectivement les températures 
+d'entrée et de sortie de l'air.
+2. **Identifiant hexadécimal** : chaque capteur a un identifiant unique, souvent 
 représenté en hexadécimal (par exemple, 75h, 2Ch). Cela permet de distinguer les différents
 capteurs et composants dans le système. 
-3. **Statut** : Cette colonne indique l'état du capteur ou du composant. Les valeurs possibles
+3. **Statut** : Indique l'état du capteur. Les valeurs possibles
 incluent :
-   - **ok** : Le capteur ou composant fonctionne correctement.
-   - **ns** : Non spécifié ou non applicable. 
+   - **ok** : le capteur fonctionne correctement.
+   - **ns** : non spécifié ou non applicable. 
    - D'autres valeurs peuvent indiquer des états spécifiques comme des erreurs ou des avertissements.
-4. **Valeur numérique** (7.1, 3.1, 3.2, etc.) : Cette valeur spécifique non utile ici. 
-5. **Température** (27 degrees C, etc) : C'est la lecture de température réelle en degrés Celsius. 
+4. **Valeur numérique** (7.1, 3.1, 3.2, etc.) : valeur spécifique non utile ici. 
+5. **Température** (27 degrees C, etc) : lecture de température réelle en degrés Celsius. 
 C'est la valeur principale à surveiller pour s'assurer que le matériel fonctionne à une température sûre.
 
 #### Relever la vitesse des ventilateurs
 `ipmitool sdr type Fan`  
+```bash
 Fan1             | 30h | ok  |  7.1 | 3000 RPM  
 Fan2             | 31h | ok  |  7.1 | 3000 RPM  
 Fan3             | 32h | ok  |  7.1 | 3000 RPM  
@@ -287,7 +289,7 @@ Fan4             | 33h | ok  |  7.1 | 3000 RPM
 Fan5             | 34h | ok  |  7.1 | 3000 RPM  
 Fan6             | 35h | ok  |  7.1 | 3000 RPM  
 Fan Redundancy   | 75h | ok  |  7.1 | Fully Redundant
-
+```
 #### Tester manuellement  la prise en compte de la consigne de vitesse
 * Envoyer une commande de PWM à 10% (0x0a) :  
 `ipmitool -I lanplus -H IP_IDRAC -U utilisateur -P 'mot_de_passe' raw 0x30 0x30 0x02 0xff 0x0a`  
